@@ -36,7 +36,7 @@ export function SuggestedForYou() {
   return (
     <section className="py-10">
       <div className="mx-auto max-w-7xl px-4 mb-6 flex items-center justify-between">
-        <h2 className="text-2xl md:text-4xl text-primary">
+        <h2 className="text-2xl md:text-4xl text-foreground">
           <RoughNotation
             type="underline"
             show={show}

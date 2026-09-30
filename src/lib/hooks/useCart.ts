@@ -60,6 +60,51 @@ export function useRemoveCartItem() {
   });
 }
 
+export function useAddComboToCart() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      comboOfferId,
+      selections,
+    }: {
+      comboOfferId: string;
+      selections: { productId: string; variantId: string }[];
+    }) => cartApi.addCombo(comboOfferId, selections),
+    onSuccess: (data) => {
+      qc.setQueryData(CART_KEY, data);
+      qc.invalidateQueries({ queryKey: CHECKOUT_SUMMARY_KEY });
+    },
+  });
+}
+
+export function useUpdateComboCartItem() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      comboGroupId,
+      quantity,
+    }: {
+      comboGroupId: string;
+      quantity: number;
+    }) => cartApi.updateComboItem(comboGroupId, quantity),
+    onSuccess: (data) => {
+      qc.setQueryData(CART_KEY, data);
+      qc.invalidateQueries({ queryKey: CHECKOUT_SUMMARY_KEY });
+    },
+  });
+}
+
+export function useRemoveComboCartItem() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (comboGroupId: string) => cartApi.removeComboItem(comboGroupId),
+    onSuccess: (data) => {
+      qc.setQueryData(CART_KEY, data);
+      qc.invalidateQueries({ queryKey: CHECKOUT_SUMMARY_KEY });
+    },
+  });
+}
+
 export function useClearCart() {
   const qc = useQueryClient();
   return useMutation({

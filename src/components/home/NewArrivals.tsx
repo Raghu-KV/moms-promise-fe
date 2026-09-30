@@ -35,7 +35,7 @@ export function NewArrivals() {
   return (
     <section className="py-10">
       <div className="mx-auto max-w-7xl px-4 mb-6 flex items-center justify-between">
-        <h2 className="text-2xl md:text-4xl text-primary text-center mb-8">
+        <h2 className="text-2xl md:text-4xl text-foreground text-center mb-8">
           <RoughNotation
             type="underline"
             show={show}
@@ -44,7 +44,7 @@ export function NewArrivals() {
             padding={isMobile ? 2 : 6}
             animationDuration={600}
           >
-            New Arrivals
+            Best Sellers
           </RoughNotation>
         </h2>
 

@@ -3,7 +3,7 @@
 import { useState, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, MapPin, CreditCard, Package } from "lucide-react";
+import { ChevronLeft, MapPin, CreditCard, Package, Gift } from "lucide-react";
 import {
   useMyOrder,
   useCancelOrder,
@@ -20,6 +20,36 @@ import {
   PAYMENT_STATUS_COLORS,
 } from "@/lib/utils/orderStatus";
 import { AuthGuard } from "@/components/auth/AuthGuard";
+import type { OrderItem } from "@/lib/api/orders";
+
+type OrderItemRow =
+  | { type: "item"; item: OrderItem }
+  | { type: "combo"; groupId: string; comboName: string; items: OrderItem[] };
+
+// Combo items on an order share a comboGroupId — group them the same way
+// the cart/checkout do, so the order history still reads as "one combo"
+// rather than a handful of unrelated-looking lines.
+function groupOrderItems(items: OrderItem[]): OrderItemRow[] {
+  const rows: OrderItemRow[] = [];
+  const seenGroups = new Set<string>();
+
+  for (const item of items) {
+    if (item.comboGroupId) {
+      if (seenGroups.has(item.comboGroupId)) continue;
+      seenGroups.add(item.comboGroupId);
+      rows.push({
+        type: "combo",
+        groupId: item.comboGroupId,
+        comboName: item.comboName || "Combo",
+        items: items.filter((i) => i.comboGroupId === item.comboGroupId),
+      });
+    } else {
+      rows.push({ type: "item", item });
+    }
+  }
+
+  return rows;
+}
 
 export default function OrderDetailPage({
   params,
@@ -100,34 +130,76 @@ export default function OrderDetailPage({
             <Package size={16} className="text-primary" /> Items
           </h2>
           <div className="space-y-4">
-            {order.items.map((item) => (
-              <div key={item.variantId} className="flex gap-4">
-                <div className="relative h-20 w-16 shrink-0 rounded-md overflow-hidden bg-foreground/5">
-                  {item.image && (
-                    <Image
-                      src={optimizedImageUrl(item.image, "w_200")}
-                      alt={item.name}
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground">
-                    {item.name}
-                  </p>
-                  <div className="flex gap-2 text-xs text-foreground/50 mt-0.5">
-                    {item.age && <span>{item.age} yrs</span>}
-                    {item.color && <span>{item.color}</span>}
-                    <span>× {item.quantity}</span>
+            {groupOrderItems(order.items).map((row) =>
+              row.type === "combo" ? (
+                <div
+                  key={row.groupId}
+                  className="rounded-card border border-primary/20 bg-primary/5 p-3 space-y-3"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <Gift size={14} className="text-primary shrink-0" />
+                    <span className="text-xs font-semibold text-primary truncate">
+                      Combo: {row.comboName}
+                    </span>
                   </div>
-                  <p className="text-sm font-semibold text-foreground mt-1">
-                    {formatPrice(item.lineTotal)}
-                  </p>
+                  {row.items.map((item) => (
+                    <div key={item.variantId} className="flex gap-4">
+                      <div className="relative h-20 w-16 shrink-0 rounded-md overflow-hidden bg-white">
+                        {item.image && (
+                          <Image
+                            src={optimizedImageUrl(item.image, "w_200")}
+                            alt={item.name}
+                            fill
+                            sizes="64px"
+                            className="object-cover"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground">
+                          {item.name}
+                        </p>
+                        <div className="flex gap-2 text-xs text-foreground/50 mt-0.5">
+                          {item.age && <span>{item.age} yrs</span>}
+                          {item.color && <span>{item.color}</span>}
+                          <span>× {item.quantity}</span>
+                        </div>
+                        <p className="text-sm font-semibold text-foreground mt-1">
+                          {formatPrice(item.lineTotal)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
+              ) : (
+                <div key={row.item.variantId} className="flex gap-4">
+                  <div className="relative h-20 w-16 shrink-0 rounded-md overflow-hidden bg-foreground/5">
+                    {row.item.image && (
+                      <Image
+                        src={optimizedImageUrl(row.item.image, "w_200")}
+                        alt={row.item.name}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-foreground">
+                      {row.item.name}
+                    </p>
+                    <div className="flex gap-2 text-xs text-foreground/50 mt-0.5">
+                      {row.item.age && <span>{row.item.age} yrs</span>}
+                      {row.item.color && <span>{row.item.color}</span>}
+                      <span>× {row.item.quantity}</span>
+                    </div>
+                    <p className="text-sm font-semibold text-foreground mt-1">
+                      {formatPrice(row.item.lineTotal)}
+                    </p>
+                  </div>
+                </div>
+              ),
+            )}
           </div>
         </section>
 

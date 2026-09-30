@@ -408,7 +408,7 @@ export function QualitySection() {
       <DoodleCloud className="hidden lg:block absolute bottom-10 left-1/4 w-12 h-8 opacity-25" />
 
       <div className="relative mx-auto max-w-7xl px-4">
-        <h2 className="text-2xl md:text-4xl text-primary text-center mb-10">
+        <h2 className="text-2xl md:text-4xl text-foreground text-center mb-10">
           <RoughNotation
             type="underline"
             show={show}
@@ -417,7 +417,7 @@ export function QualitySection() {
             padding={isMobile ? 2 : 4}
             animationDuration={600}
           >
-            Why moms-promise?
+            About Us
           </RoughNotation>
         </h2>
 

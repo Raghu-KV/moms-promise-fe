@@ -15,6 +15,9 @@ export interface CartItem {
   stockRemaining?: number;
   priceChanged?: boolean;
   issue?: string;
+  comboOfferId?: string | null;
+  comboGroupId?: string | null;
+  comboName?: string | null;
 }
 
 export interface CartResponse {
@@ -29,6 +32,11 @@ export interface ApplyCouponResponse {
   message: string;
   discountAmount: number;
   cart: CartResponse;
+}
+
+export interface ComboSelection {
+  productId: string;
+  variantId: string;
 }
 
 export const cartApi = {
@@ -62,6 +70,32 @@ export const cartApi = {
 
   removeItem: async (variantId: string): Promise<CartResponse> => {
     const res = await api.delete<CartResponse>(`/cart/items/${variantId}`);
+    return res.data;
+  },
+
+  addCombo: async (
+    comboOfferId: string,
+    selections: ComboSelection[],
+  ): Promise<CartResponse> => {
+    const res = await api.post<CartResponse>("/cart/combo", {
+      comboOfferId,
+      selections,
+    });
+    return res.data;
+  },
+
+  updateComboItem: async (
+    comboGroupId: string,
+    quantity: number,
+  ): Promise<CartResponse> => {
+    const res = await api.put<CartResponse>(`/cart/combo/${comboGroupId}`, {
+      quantity,
+    });
+    return res.data;
+  },
+
+  removeComboItem: async (comboGroupId: string): Promise<CartResponse> => {
+    const res = await api.delete<CartResponse>(`/cart/combo/${comboGroupId}`);
     return res.data;
   },
 

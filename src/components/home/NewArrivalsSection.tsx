@@ -9,7 +9,7 @@ export async function NewArrivalsSection() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-10">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-2xl text-primary">New Arrivals</h2>
+        <h2 className="text-2xl text-foreground">New Arrivals</h2>
         <Link
           href="/products"
           className="text-sm font-semibold text-accent hover:underline"

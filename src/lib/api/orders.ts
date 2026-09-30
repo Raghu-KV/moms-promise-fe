@@ -11,6 +11,9 @@ export interface OrderItem {
   quantity: number;
   unitPrice: number;
   lineTotal: number;
+  comboOfferId?: string | null;
+  comboGroupId?: string | null;
+  comboName?: string | null;
 }
 
 export interface OrderPricing {
