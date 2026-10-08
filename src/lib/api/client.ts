@@ -14,6 +14,8 @@ api.interceptors.response.use(
   (error) => {
     const message =
       error.response?.data?.message || error.message || "Something went wrong";
-    return Promise.reject(new Error(message));
+    // Keep the original response on the Error so callers that read
+    // err.response.data.message keep working alongside err.message.
+    return Promise.reject(Object.assign(new Error(message), { response: error.response }));
   },
 );

@@ -3,24 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { RoughNotation } from "react-rough-notation";
 import { optimizedImageUrl } from "@/lib/utils/cloudinary";
 import { categoriesApi } from "@/lib/api/categories";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import type { Category } from "@/lib/api/categories";
 
 export function CategoryStrip() {
-  const [show, setShow] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     categoriesApi
       .getAll()
       .then(setCategories)
       .catch(() => setCategories([]));
-    const t = setTimeout(() => setShow(true), 400);
-    return () => clearTimeout(t);
   }, []);
 
   if (categories.length === 0) return null;
@@ -28,16 +22,7 @@ export function CategoryStrip() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-10">
       <h2 className="text-2xl md:text-4xl text-foreground text-center mb-8">
-        <RoughNotation
-          type="underline"
-          show={show}
-          color="var(--color-highlight)"
-          strokeWidth={isMobile ? 2 : 4}
-          padding={isMobile ? 2 : 4}
-          animationDuration={600}
-        >
-          Shop by Category
-        </RoughNotation>
+        Shop by Category
       </h2>
       <div className="flex flex-wrap justify-center gap-6">
         {categories.map((cat) => (

@@ -138,7 +138,7 @@ export function MobileNav({ categories }: { categories: Category[] }) {
             <Link
               href="/products"
               onClick={handleClose}
-              className="block py-3 text-base font-medium text-accent border-b border-foreground/10"
+              className="block py-3 text-base font-medium text-primary border-b border-foreground/10"
             >
               New Arrivals
             </Link>

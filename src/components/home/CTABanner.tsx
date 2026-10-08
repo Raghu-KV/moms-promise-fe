@@ -53,23 +53,23 @@ export function CTABanner() {
     <section ref={sectionRef} className="mx-auto max-w-7xl px-4 py-10 md:py-16">
       <div className="relative md:mt-10">
         {/* the card itself — overflow-hidden clips only its own background decoration */}
-        <div className="relative overflow-hidden rounded-card bg-primary px-8 py-12 md:py-8 md:pl-56 flex flex-col md:flex-row-reverse items-center justify-between gap-8 shadow-xl">
+        <div className="relative overflow-hidden rounded-card border-2 border-highlight/40 bg-highlight/20 px-8 py-12 md:py-8 md:pl-56 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
           {/* decorative blobs */}
-          <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-white/5 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 left-32 w-56 h-56 rounded-full bg-highlight/10 translate-y-1/2 pointer-events-none" />
-          <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-white/4 -translate-x-1/3 -translate-y-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-white/40 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-32 w-56 h-56 rounded-full bg-white/50 translate-y-1/2 pointer-events-none" />
+          <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-white/30 -translate-x-1/3 -translate-y-1/2 pointer-events-none" />
 
           {/* content — right */}
           <div
             ref={contentRef}
             className="relative z-10 flex flex-col items-start gap-5 max-w-lg"
           >
-            <h2 className="text-3xl md:text-5xl text-white leading-tight">
+            <h2 className="text-3xl md:text-5xl text-primary leading-tight">
               Dress them for every
               <br />
-              <span className="text-highlight">adventure.</span>
+              adventure.
             </h2>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+            <p className="text-sm md:text-base text-foreground/70 leading-relaxed">
               From first steps to big-kid energy — moms-promise has playful, durable
               apparel for every stage. Explore our full collection and find the
               perfect fit for your little one.
@@ -77,13 +77,13 @@ export function CTABanner() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/products"
-                className="flex items-center gap-2 rounded-chip bg-highlight px-6 py-3 text-sm font-semibold text-black  transition-colors"
+                className="flex items-center gap-2 rounded-chip bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
               >
                 Shop all products <ArrowRight size={16} />
               </Link>
               <Link
                 href="/products?availability=in_stock"
-                className="flex items-center gap-2 rounded-chip border-2 border-white/40 px-6 py-3 text-sm font-semibold text-white hover:border-white transition-colors"
+                className="flex items-center gap-2 rounded-chip border-2 border-primary/40 px-6 py-3 text-sm font-semibold text-primary hover:border-primary transition-colors"
               >
                 In stock now
               </Link>
@@ -101,7 +101,7 @@ export function CTABanner() {
             alt="moms-promise eagle mascot"
             width={1000}
             height={1000}
-            className="w-180 h-full drop-shadow-2xl -translate-y-6 lg:-translate-y-28"
+            className="w-180 h-full -translate-y-6 lg:-translate-y-28"
           />
         </div>
       </div>

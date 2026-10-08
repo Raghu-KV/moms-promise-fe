@@ -4,6 +4,7 @@ export interface Review {
   _id: string;
   customerName: string;
   customerImage?: string;
+  productImage?: string;
   rating: number;
   reviewText: string;
   sortOrder: number;

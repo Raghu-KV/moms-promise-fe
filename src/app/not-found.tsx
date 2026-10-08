@@ -6,11 +6,10 @@ export default function NotFound() {
   return (
     <main className="mx-auto max-w-xl px-4 py-20 text-center flex flex-col items-center gap-6">
       <Image
-        src="/eagle.svg"
-        alt="moms-promise eagle"
-        width={100}
-        height={160}
-        className="opacity-80"
+        src="/boy.svg"
+        alt="Lost kid"
+        width={140}
+        height={168}
       />
       <div>
         <h1 className="text-6xl text-primary mb-2">404</h1>

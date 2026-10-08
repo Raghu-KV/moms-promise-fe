@@ -4,23 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
-import { RoughNotation } from "react-rough-notation";
 import { ChevronLeft, ChevronRight, Play, ShoppingBag } from "lucide-react";
 import { optimizedImageUrl, videoThumbnail } from "@/lib/utils/cloudinary";
 import { shopVideosApi } from "@/lib/api/shopVideos";
 import type { ShopVideo } from "@/lib/api/shopVideos";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import { ShopVideoViewer } from "./ShopVideoViewer";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 
 export function ShopVideosSection() {
-  const [show, setShow] = useState(false);
   const [videos, setVideos] = useState<ShopVideo[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const isMobile = useIsMobile();
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
@@ -28,8 +24,6 @@ export function ShopVideosSection() {
       .getAll()
       .then(setVideos)
       .catch(() => setVideos([]));
-    const t = setTimeout(() => setShow(true), 300);
-    return () => clearTimeout(t);
   }, []);
 
   if (videos.length === 0) return null;
@@ -38,16 +32,7 @@ export function ShopVideosSection() {
     <section className="py-14">
       <div className="mx-auto max-w-7xl px-4 mb-6 flex items-center justify-between">
         <h2 className="text-2xl md:text-4xl text-foreground">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 4}
-            padding={isMobile ? 2 : 4}
-            animationDuration={600}
-          >
-            Shop the Look
-          </RoughNotation>
+          Shop the Look
         </h2>
 
         <div className="hidden sm:flex items-center gap-2">
@@ -76,8 +61,7 @@ export function ShopVideosSection() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          freeMode
-          loop={videos.length > 4}
+          rewind
           autoplay={{
             delay: 2800,
             disableOnInteraction: false,

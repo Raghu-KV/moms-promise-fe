@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { RoughNotation } from "react-rough-notation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
@@ -10,15 +9,12 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductCard } from "@/components/product/ProductCard";
 import { productsApi } from "@/lib/api/products";
 import type { ProductSummary } from "@/lib/api/products";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 
 export function NewArrivals() {
-  const [show, setShow] = useState(false);
   const [products, setProducts] = useState<ProductSummary[]>([]);
-  const isMobile = useIsMobile();
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
@@ -26,8 +22,6 @@ export function NewArrivals() {
       .list({ limit: "8" })
       .then((d) => setProducts(d.products))
       .catch(() => []);
-    const t = setTimeout(() => setShow(true), 600);
-    return () => clearTimeout(t);
   }, []);
 
   if (products.length === 0) return null;
@@ -36,16 +30,7 @@ export function NewArrivals() {
     <section className="py-10">
       <div className="mx-auto max-w-7xl px-4 mb-6 flex items-center justify-between">
         <h2 className="text-2xl md:text-4xl text-foreground text-center mb-8">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 6}
-            padding={isMobile ? 2 : 6}
-            animationDuration={600}
-          >
-            Best Sellers
-          </RoughNotation>
+          Best Sellers
         </h2>
 
         <div className="flex items-center gap-3">
@@ -71,7 +56,7 @@ export function NewArrivals() {
 
           <Link
             href="/products"
-            className="flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+            className="flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
           >
             View all <ArrowRight size={14} />
           </Link>
@@ -84,8 +69,7 @@ export function NewArrivals() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          freeMode
-          loop
+          rewind
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,

@@ -6,9 +6,6 @@ import {
   Truck,
   Wallet,
   CreditCard,
-  Banknote,
-  Loader2,
-  CheckCircle,
   XCircle,
 } from "lucide-react";
 import gsap from "gsap";
@@ -23,20 +20,8 @@ import { AuthGuard } from "@/components/auth/AuthGuard";
 import { usePlaceOrder, useServiceability } from "@/lib/hooks/useCheckout";
 import type { Address } from "@/lib/api/address";
 
-const PAYMENT_OPTIONS = [
-  {
-    id: "online" as const,
-    label: "Online Payment",
-    description: "UPI, cards or netbanking via Razorpay",
-    icon: CreditCard,
-  },
-  {
-    id: "cod" as const,
-    label: "Cash on Delivery",
-    description: "Pay when your order arrives",
-    icon: Banknote,
-  },
-];
+// Online payment is the only supported method (no cash on delivery).
+const PAYMENT_MODE = "online" as const;
 
 function CheckoutContent() {
   const router = useRouter();
@@ -47,7 +32,6 @@ function CheckoutContent() {
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
-  const [paymentMode, setPaymentMode] = useState<"online" | "cod">("online");
   const [showForm, setShowForm] = useState(false);
   const [editAddress, setEditAddress] = useState<Address | null>(null);
   const [error, setError] = useState("");
@@ -69,7 +53,6 @@ function CheckoutContent() {
     serviceabilityLoading ||
     serviceability?.isServiceable !== false;
 
-  const isCodAvailable = serviceability?.isCodAvailable !== false;
   const checkingServiceability =
     serviceabilityLoading || serviceabilityFetching;
 
@@ -80,17 +63,6 @@ function CheckoutContent() {
       if (def) setSelectedAddressId(def._id);
     }
   }, [addresses]);
-
-  // auto-switch away from COD if not available for pincode
-  useEffect(() => {
-    if (
-      serviceability &&
-      !serviceability.isCodAvailable &&
-      paymentMode === "cod"
-    ) {
-      setPaymentMode("online");
-    }
-  }, [serviceability]);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -126,7 +98,7 @@ function CheckoutContent() {
       setOrderPlaced(true);
       const result = await placeOrder.mutateAsync({
         addressId: selectedAddressId,
-        paymentMode,
+        paymentMode: PAYMENT_MODE,
       });
       if (result.requiresPayment) {
         router.push(`/checkout/payment?orderId=${result.order._id}`);
@@ -231,39 +203,11 @@ function CheckoutContent() {
             )}
           </section>
 
-          {/* Serviceability strip */}
-          {selectedPincode && (
-            <div
-              className={`flex items-center gap-2 rounded-card px-4 py-3 text-sm ${checkingServiceability
-                ? "bg-foreground/5 text-foreground/50"
-                : isServiceable
-                  ? "bg-green-50 text-green-700"
-                  : "bg-red-50 text-red-600"
-                }`}
-            >
-              {checkingServiceability ? (
-                <>
-                  <Loader2 size={14} className="animate-spin shrink-0" />
-                  Checking delivery to {selectedPincode}...
-                </>
-              ) : isServiceable ? (
-                <>
-                  <CheckCircle size={14} className="shrink-0" />
-                  {serviceability?.transitDays
-                    ? `Delivery in ${serviceability.transitDays} day${serviceability.transitDays !== 1 ? "s" : ""} to ${selectedPincode}`
-                    : `Delivery available to ${selectedPincode}`}
-                  {!isCodAvailable && (
-                    <span className="ml-2 text-xs text-foreground/50">
-                      (COD not available for this pincode)
-                    </span>
-                  )}
-                </>
-              ) : (
-                <>
-                  <XCircle size={14} className="shrink-0" />
-                  Sorry, we don&apos;t deliver to {selectedPincode} yet.
-                </>
-              )}
+          {/* Only surface a problem — a deliverable pincode needs no banner */}
+          {selectedPincode && !checkingServiceability && !isServiceable && (
+            <div className="flex items-center gap-2 rounded-card bg-red-50 px-4 py-3 text-sm text-red-600">
+              <XCircle size={14} className="shrink-0" />
+              Sorry, we don&apos;t deliver to {selectedPincode} yet.
             </div>
           )}
 
@@ -275,36 +219,18 @@ function CheckoutContent() {
               </span>
               Payment Method
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {PAYMENT_OPTIONS.filter(
-                ({ id }) => id === "online" || isCodAvailable,
-              ).map(({ id, label, description, icon: Icon }) => (
-                <button
-                  key={id}
-                  onClick={() => setPaymentMode(id)}
-                  className={`flex items-start gap-3 rounded-card border-2 px-4 sm:px-5 py-4 text-left transition-all ${paymentMode === id
-                    ? "border-primary bg-primary/5"
-                    : "border-foreground/10 hover:border-foreground/30"
-                    }`}
-                >
-                  <span
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${paymentMode === id
-                      ? "bg-primary text-white"
-                      : "bg-foreground/5 text-foreground/50"
-                      }`}
-                  >
-                    <Icon size={18} />
-                  </span>
-                  <span className="min-w-0">
-                    <p className="text-sm font-semibold text-foreground">
-                      {label}
-                    </p>
-                    <p className="text-xs text-foreground/50 mt-1">
-                      {description}
-                    </p>
-                  </span>
-                </button>
-              ))}
+            <div className="flex items-start gap-3 rounded-card border-2 border-primary bg-primary/5 px-4 sm:px-5 py-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                <CreditCard size={18} />
+              </span>
+              <span className="min-w-0">
+                <p className="text-sm font-semibold text-foreground">
+                  Online Payment
+                </p>
+                <p className="text-xs text-foreground/50 mt-1">
+                  UPI, cards or netbanking via Razorpay
+                </p>
+              </span>
             </div>
           </section>
 
@@ -326,7 +252,7 @@ function CheckoutContent() {
               checkingServiceability
             }
           >
-            {paymentMode === "cod" ? "Place Order" : "Continue to Payment"}
+            Continue to Payment
           </Button>
         </div>
 

@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { RoughNotation } from "react-rough-notation";
 import { Leaf, Palette, Scissors, Recycle } from "lucide-react";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -243,17 +241,10 @@ function DoodleBalloon({ className }: { className?: string }) {
 // ---------------------------------------------------------------------------
 
 export function QualitySection() {
-  const [show, setShow] = useState(false);
-  const isMobile = useIsMobile();
   const eagleRef = useRef<HTMLDivElement>(null);
   const hoverRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const burstContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const t = setTimeout(() => setShow(true), 300);
-    return () => clearTimeout(t);
-  }, []);
 
   useEffect(() => {
     if (!eagleRef.current || !cardsRef.current) return;
@@ -409,16 +400,7 @@ export function QualitySection() {
 
       <div className="relative mx-auto max-w-7xl px-4">
         <h2 className="text-2xl md:text-4xl text-foreground text-center mb-10">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 4}
-            padding={isMobile ? 2 : 4}
-            animationDuration={600}
-          >
-            About Us
-          </RoughNotation>
+          About Us
         </h2>
 
         <div className="relative flex flex-col md:flex-row items-center gap-10">

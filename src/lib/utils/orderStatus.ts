@@ -15,7 +15,7 @@ export const ORDER_STATUS_COLORS: Record<string, string> = {
   confirmed: "bg-primary/10 text-primary",
   processing: "bg-primary/10 text-primary",
   shipped: "bg-primary/20 text-primary",
-  out_for_delivery: "bg-accent/10 text-accent",
+  out_for_delivery: "bg-accent/10 text-primary",
   delivered: "bg-green-100 text-green-700",
   cancelled: "bg-red-100 text-red-600",
   returned: "bg-foreground/10 text-foreground/60",

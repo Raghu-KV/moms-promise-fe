@@ -26,11 +26,10 @@ function SuccessContent() {
           </p>
         </div>
         <Image
-          src="/eagle.svg"
-          alt="moms-promise eagle"
-          width={120}
-          height={200}
-          className="opacity-90"
+          src="/boy.svg"
+          alt="Happy kid"
+          width={180}
+          height={215}
         />
         <div className="flex gap-3 flex-wrap justify-center">
           <Link href="/products">

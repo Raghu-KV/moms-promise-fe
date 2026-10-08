@@ -8,7 +8,7 @@ export function PromoBanner() {
         <p className="mt-2 text-white/90">Up to 40% off on selected styles</p>
         <Link
           href="/products?availability=in_stock"
-          className="mt-6 inline-block rounded-chip bg-white px-6 py-3 text-sm font-semibold text-accent hover:bg-cream transition-colors"
+          className="mt-6 inline-block rounded-chip bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-cream transition-colors"
         >
           Shop the Sale
         </Link>

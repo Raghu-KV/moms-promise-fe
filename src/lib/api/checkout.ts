@@ -28,7 +28,7 @@ export interface CheckoutSummary {
   pricing: CheckoutPricing;
   couponCode: string | null;
   couponMessage: string | null;
-  freeShippingThreshold: number;
+  freeShippingThreshold: number | null; // null = free shipping is off
   shippingNote?: string;
 }
 

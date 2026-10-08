@@ -5,11 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
-import { RoughNotation } from "react-rough-notation";
 import { optimizedImageUrl } from "@/lib/utils/cloudinary";
 import { shopByAgeApi } from "@/lib/api/shopByAge";
 import type { ShopByAgeGroup } from "@/lib/api/shopByAge";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -22,17 +20,13 @@ const CHIP_COLORS = [
 ];
 
 export function ShopByAge() {
-  const [show, setShow] = useState(false);
   const [ageGroups, setAgeGroups] = useState<ShopByAgeGroup[]>([]);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     shopByAgeApi
       .getAll()
       .then(setAgeGroups)
       .catch(() => setAgeGroups([]));
-    const t = setTimeout(() => setShow(true), 300);
-    return () => clearTimeout(t);
   }, []);
 
   if (ageGroups.length === 0) return null;
@@ -40,17 +34,8 @@ export function ShopByAge() {
   return (
     <section className="py-6">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="text-2xl md:text-4xl text-foreground text-center mb-6">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 4}
-            padding={isMobile ? 2 : 4}
-            animationDuration={600}
-          >
-            Shop by Age
-          </RoughNotation>
+        <h2 className="font-script text-2xl md:text-4xl text-foreground text-center mb-6">
+          Shop by Age
         </h2>
 
         <Swiper

@@ -19,7 +19,7 @@ export function CartIcon() {
     >
       <ShoppingBag className="text-foreground" size={24} />
       {itemCount > 0 && (
-        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-white">
+        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-white">
           {itemCount}
         </span>
       )}

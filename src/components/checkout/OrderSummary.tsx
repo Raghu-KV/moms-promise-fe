@@ -59,7 +59,9 @@ export function OrderSummary({ addressId }: OrderSummaryProps) {
 
   const { items, pricing, couponCode, freeShippingThreshold, shippingNote } = summary;
   const remainingForFreeShipping =
-    freeShippingThreshold - (pricing.subtotal - pricing.discount);
+    freeShippingThreshold === null
+      ? 0
+      : freeShippingThreshold - (pricing.subtotal - pricing.discount);
   const rows = groupCheckoutItems(items);
 
   return (

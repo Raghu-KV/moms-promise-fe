@@ -31,7 +31,7 @@ function PaymentContent() {
       .createOrder(orderId)
       .then(setRazorpayData)
       .catch((err: any) =>
-        setError(err?.response?.data?.message || "Failed to initiate payment")
+        setError(err?.message || "Failed to initiate payment")
       )
       .finally(() => setIsLoading(false));
   }, [orderId]);
@@ -65,7 +65,7 @@ function PaymentContent() {
           router.push(`/checkout/success?orderNumber=${result.order.orderNumber}`);
         } catch (err: any) {
           setError(
-            err?.response?.data?.message ||
+            err?.message ||
             "Payment verification failed. Contact support."
           );
           setIsProcessing(false);
@@ -109,7 +109,7 @@ function PaymentContent() {
       setIsLoading(false);
       openRazorpay(freshData);
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to retry payment.");
+      setError(err?.message || "Failed to retry payment.");
       setIsLoading(false);
     }
   };
@@ -143,13 +143,15 @@ function PaymentContent() {
 
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-6 text-center">
-      <Image src="/eagle.svg" alt="moms-promise eagle" width={100} height={160} />
+      <Image src="/girl.svg" alt="Happy kid" width={130} height={178} />
       <div>
         <h1 className="text-2xl text-primary mb-2">Complete your payment</h1>
-        <p className="text-sm text-foreground/60">
-          Order #{razorpayData?.orderNumber} ·{" "}
-          {razorpayData?.amount ? formatPrice(razorpayData.amount) : ""}
-        </p>
+        {razorpayData && (
+          <p className="text-sm text-foreground/60">
+            Order #{razorpayData.orderNumber}
+            {razorpayData.amount ? ` · ${formatPrice(razorpayData.amount)}` : ""}
+          </p>
+        )}
       </div>
 
       {error && (

@@ -153,7 +153,7 @@ export function CartDrawer() {
         {!isEmpty && (
           <div className="border-t border-foreground/10 px-5 py-3 space-y-2.5">
             {cart?.hasIssues && (
-              <p className="text-xs text-accent bg-accent/10 rounded-card px-3 py-1.5">
+              <p className="text-xs text-primary bg-accent/10 rounded-card px-3 py-1.5">
                 Some items have issues — please review before checkout.
               </p>
             )}
@@ -242,7 +242,7 @@ function CartLineItem({
 
         {/* Price changed warning */}
         {item.priceChanged && (
-          <p className="text-xs text-accent mt-0.5">Price updated</p>
+          <p className="text-xs text-primary mt-0.5">Price updated</p>
         )}
         {!item.available && (
           <p className="text-xs text-red-500 mt-0.5">

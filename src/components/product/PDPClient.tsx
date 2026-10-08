@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Star, Ruler, Droplet, X, Loader2, CheckCircle, XCircle, MapPin } from "lucide-react";
+import { ChevronRight, Star, Ruler, Droplet, X } from "lucide-react";
 import gsap from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
@@ -19,7 +19,6 @@ import { contentApi } from "@/lib/api/content";
 
 import { useAddToCart } from "@/lib/hooks/useCart";
 import { useCartUiStore } from "@/store/cartUiStore";
-import { useServiceability } from "@/lib/hooks/useCheckout";
 
 import "swiper/css";
 
@@ -49,9 +48,6 @@ export function PDPClient({ product, variants }: Props) {
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const [pincode, setPincode] = useState("");
-  const [debouncedPincode, setDebouncedPincode] = useState("");
-  const [pincodeOpen, setPincodeOpen] = useState(false);
 
   const { data: shippingData } = useQuery({
     queryKey: ["shipping-return-short"],
@@ -176,11 +172,6 @@ export function PDPClient({ product, variants }: Props) {
     };
   }, [sizeGuideOpen]);
 
-  useEffect(() => {
-    const t = setTimeout(() => setDebouncedPincode(pincode), 600);
-    return () => clearTimeout(t);
-  }, [pincode]);
-
   const handleThumbnailClick = (i: number) => {
     setActiveImageIndex(i);
     mobileSwiperRef.current?.slideTo(i);
@@ -205,11 +196,6 @@ export function PDPClient({ product, variants }: Props) {
     });
     openDrawer();
   };
-
-  const {
-    data: serviceability,
-    isFetching: checkingPin,
-  } = useServiceability(debouncedPincode);
 
   const Badges = (
     <div className="absolute top-3 inset-x-3 flex justify-between z-20 pointer-events-none">
@@ -411,7 +397,7 @@ export function PDPClient({ product, variants }: Props) {
               </p>
             )}
             {pricing.discountPercent > 0 && (
-              <span className="text-sm font-semibold text-accent">
+              <span className="text-sm font-semibold text-primary">
                 {pricing.discountPercent}% off
               </span>
             )}
@@ -577,80 +563,6 @@ export function PDPClient({ product, variants }: Props) {
             >
               {inStock ? "Add to Cart" : "Out of Stock"}
             </Button>
-          </div>
-
-          {/* Pincode serviceability check */}
-          <div className="border-t border-foreground/10 pt-4">
-            <button
-              onClick={() => setPincodeOpen((v) => !v)}
-              className="flex w-full items-center justify-between text-sm font-semibold text-foreground"
-            >
-              <span className="flex items-center gap-2">
-                <MapPin size={15} className="text-primary" />
-                Check Delivery
-              </span>
-              <ChevronRight
-                size={16}
-                className={cn(
-                  "text-foreground/40",
-                  mounted && "transition-transform duration-300 ease-out",
-                  pincodeOpen ? "-rotate-90" : "rotate-90",
-                )}
-              />
-            </button>
-
-            <div
-              className={cn(
-                "grid",
-                mounted && "transition-all duration-300 ease-out",
-                pincodeOpen
-                  ? "grid-rows-[1fr] opacity-100 mt-3"
-                  : "grid-rows-[0fr] opacity-0 mt-0",
-              )}
-            >
-              <div className="overflow-hidden">
-                <div className="flex gap-3">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={pincode}
-                      onChange={(e) => setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                      placeholder="Enter pincode"
-                      maxLength={6}
-                      className="w-36 rounded-card border border-foreground/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    {checkingPin && (
-                      <div className="flex items-center px-3 text-foreground/40">
-                        <Loader2 size={16} className="animate-spin" />
-                      </div>
-                    )}
-                  </div>
-
-                  {debouncedPincode.length === 6 && !checkingPin && serviceability && (
-                    <div className={`flex items-center gap-2 rounded-card px-3 text-xs font-medium ${serviceability.isServiceable
-                      ? "bg-green-50 text-green-700"
-                      : "bg-red-50 text-red-600"
-                      }`}>
-                      {serviceability.isServiceable ? (
-                        <>
-                          <CheckCircle size={13} className="shrink-0" />
-                          Delivery available
-                          {serviceability.transitDays > 0 && ` in ${serviceability.transitDays} day${serviceability.transitDays !== 1 ? "s" : ""}`}
-                          {!serviceability.isCodAvailable && (
-                            <span className="ml-1 text-foreground/50">(COD not available)</span>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          <XCircle size={13} className="shrink-0" />
-                          {serviceability.message || "Delivery not available to this pincode"}
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Attributes */}

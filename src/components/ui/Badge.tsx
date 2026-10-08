@@ -16,7 +16,7 @@ interface BadgeProps {
 
 const variantStyles: Record<BadgeVariant, string> = {
   primary: "bg-primary text-white",
-  accent: "bg-accent text-white",
+  accent: "bg-accent text-primary",
   highlight: "bg-highlight text-charcoal",
   neutral: "bg-foreground/10 text-foreground",
 };

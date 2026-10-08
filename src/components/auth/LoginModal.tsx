@@ -69,7 +69,7 @@ export function LoginModal({ isOpen, onClose, message }: LoginModalProps) {
 
                 <Image
                     src="/boy.svg"
-                    alt="moms-promise eagle"
+                    alt="Happy kid"
                     width={80}
                     height={130}
                     className="mx-auto mb-4"

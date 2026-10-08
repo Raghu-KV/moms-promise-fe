@@ -3,7 +3,7 @@ import { Truck, RotateCcw, ShieldCheck } from "lucide-react";
 const ITEMS = [
   { icon: Truck, label: "Pan-India Delivery", sub: "Fast, tracked shipping" },
   { icon: RotateCcw, label: "Easy Returns", sub: "7-day return window" },
-  { icon: ShieldCheck, label: "Secure Payments", sub: "UPI, cards & COD" },
+  { icon: ShieldCheck, label: "Secure Payments", sub: "UPI, cards & netbanking" },
 ];
 
 export function TrustStrip() {

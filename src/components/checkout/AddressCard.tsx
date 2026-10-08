@@ -33,7 +33,7 @@ export function AddressCard({
       }`}
     >
       {address.isDefault && (
-        <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-highlight/15 px-2 py-1 text-[11px] font-semibold text-accent">
+        <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-highlight/15 px-2 py-1 text-[11px] font-semibold text-primary">
           <Star size={11} className="fill-accent" /> Default
         </span>
       )}

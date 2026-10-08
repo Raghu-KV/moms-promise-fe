@@ -1,4 +1,4 @@
-import { Lilita_One, Poppins } from "next/font/google";
+import { Lilita_One, Pacifico, Poppins } from "next/font/google";
 import { Providers } from "@/lib/query/providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -14,6 +14,11 @@ const lilita = Lilita_One({
   weight: "400",
   variable: "--font-display",
 });
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pacifico",
+});
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -26,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lilita.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${lilita.variable} ${pacifico.variable} ${poppins.variable}`}>
       <body>
         <Providers>
           <div className="sticky top-0 z-40">

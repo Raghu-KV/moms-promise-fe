@@ -54,7 +54,7 @@ export function FilterSidebar() {
         <SlidersHorizontal size={16} />
         Filters
         {hasActiveFilters && (
-          <span className="h-2 w-2 rounded-full bg-accent" />
+          <span className="h-2 w-2 rounded-full bg-primary" />
         )}
       </button>
 

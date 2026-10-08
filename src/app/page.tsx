@@ -5,6 +5,8 @@ import { PromoBanner } from "@/components/home/PromoBanner";
 import { ShopByAge } from "@/components/home/ShopByAge";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { BannerSection } from "@/components/home/BannerSection";
+import { MarqueeStrip } from "@/components/home/MarqueeStrip";
+import { SubCategorySections } from "@/components/home/SubCategorySections";
 import { ComboOffersSection } from "@/components/home/ComboOffersSection";
 import { NewArrivals } from "@/components/home/NewArrivals";
 import { QualitySection } from "@/components/home/QualitySection";
@@ -21,6 +23,8 @@ export default function HomePage() {
     <>
       <ShopByAge />
       <BannerSection />
+      <MarqueeStrip />
+      <SubCategorySections />
       <ComboOffersSection />
       <NewArrivals />
       {/* <CategoryStrip /> */}

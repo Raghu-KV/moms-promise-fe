@@ -3,11 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { RoughNotation } from "react-rough-notation";
 import { optimizedImageUrl } from "@/lib/utils/cloudinary";
 import { kpiImagesApi } from "@/lib/api/kpiImages";
 import type { KpiImage } from "@/lib/api/kpiImages";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -39,9 +37,7 @@ function KpiTile({ image }: { image: KpiImage }) {
 }
 
 export function KpiSection() {
-  const [show, setShow] = useState(false);
   const [images, setImages] = useState<KpiImage[]>([]);
-  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,8 +45,6 @@ export function KpiSection() {
       .getAll()
       .then(setImages)
       .catch(() => setImages([]));
-    const t = setTimeout(() => setShow(true), 300);
-    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -84,16 +78,7 @@ export function KpiSection() {
     <section className="py-14">
       <div className="mx-auto max-w-7xl px-4">
         <h2 className="text-2xl md:text-4xl text-foreground text-center mb-10">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 4}
-            padding={isMobile ? 2 : 4}
-            animationDuration={600}
-          >
-            Our Impact
-          </RoughNotation>
+          Our Impact
         </h2>
 
         <div ref={containerRef}>

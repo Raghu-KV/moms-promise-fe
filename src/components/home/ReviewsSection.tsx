@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { RoughNotation } from "react-rough-notation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
@@ -11,15 +10,12 @@ import { StarRating } from "@/components/ui/StarRating";
 import { optimizedImageUrl } from "@/lib/utils/cloudinary";
 import { reviewsApi } from "@/lib/api/reviews";
 import type { Review } from "@/lib/api/reviews";
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 
 export function ReviewsSection() {
-  const [show, setShow] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
-  const isMobile = useIsMobile();
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
@@ -27,8 +23,6 @@ export function ReviewsSection() {
       .getAll()
       .then(setReviews)
       .catch(() => setReviews([]));
-    const t = setTimeout(() => setShow(true), 300);
-    return () => clearTimeout(t);
   }, []);
 
   if (reviews.length === 0) return null;
@@ -37,16 +31,7 @@ export function ReviewsSection() {
     <section className="py-14">
       <div className="mx-auto max-w-7xl px-4 mb-6 flex items-center justify-between">
         <h2 className="text-2xl md:text-4xl text-foreground">
-          <RoughNotation
-            type="underline"
-            show={show}
-            color="var(--color-highlight)"
-            strokeWidth={isMobile ? 2 : 4}
-            padding={isMobile ? 2 : 4}
-            animationDuration={600}
-          >
-            What Parents Say
-          </RoughNotation>
+          What Parents Say
         </h2>
 
         {/* nav buttons — hidden on mobile, swipe gesture covers that */}
@@ -76,8 +61,7 @@ export function ReviewsSection() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          freeMode
-          loop={reviews.length > 3}
+          rewind
           autoplay={{
             delay: 3500,
             disableOnInteraction: false,
@@ -94,6 +78,17 @@ export function ReviewsSection() {
           {reviews.map((review) => (
             <SwiperSlide key={review._id} className="h-auto">
               <div className="h-full flex flex-col rounded-card border border-foreground/10 bg-white p-5">
+                {review.productImage && (
+                  <div className="relative mb-4 aspect-4/3 w-full shrink-0 overflow-hidden rounded-card bg-foreground/5">
+                    <Image
+                      src={optimizedImageUrl(review.productImage, "w_600")}
+                      alt={`Product reviewed by ${review.customerName}`}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <Quote size={24} className="text-highlight mb-2 shrink-0" />
                 <p className="text-sm text-foreground/70 leading-relaxed flex-1">
                   {review.reviewText}

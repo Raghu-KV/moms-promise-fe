@@ -12,7 +12,7 @@ export async function NewArrivalsSection() {
         <h2 className="text-2xl text-foreground">New Arrivals</h2>
         <Link
           href="/products"
-          className="text-sm font-semibold text-accent hover:underline"
+          className="text-sm font-semibold text-primary hover:underline"
         >
           View all
         </Link>

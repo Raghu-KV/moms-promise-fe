@@ -5,6 +5,7 @@ export interface SubCategory {
   categoryId: string;
   name: string;
   slug: string;
+  imageUrl?: string;
   status: "active" | "inactive";
 }
 
