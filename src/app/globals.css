@@ -6,6 +6,8 @@
   --color-brand-blue: #1358f1;
   --color-brand-orange: #b1c5fa;
   --color-brand-yellow: #f9addf;
+  /* Sampled from the logo's "Mom's Promise" lettering */
+  --color-logo-pink: #f111a8;
 
   /* Neutrals */
   --color-cream: #ffffff;
@@ -21,7 +23,7 @@
   /* Type */
   --font-display: "Baloo 2", sans-serif;
   --font-body: "Inter", sans-serif;
-  --font-script: var(--font-pacifico), cursive;
+  --font-script: var(--font-dancing-script), cursive;
 
   /* Radius — slightly rounded throughout, matches the friendly type */
   --radius-card: 1rem;
@@ -34,12 +36,16 @@ body {
   font-family: var(--font-body);
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-script);
-  letter-spacing: 0.01em;
+/* In the base layer so font utilities on a heading can override it —
+   unlayered rules would always win over Tailwind's layered utilities. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-script);
+    letter-spacing: 0.01em;
+  }
 }
 
 @keyframes marquee {

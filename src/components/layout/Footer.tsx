@@ -43,22 +43,22 @@ export function Footer() {
             Get in Touch
           </p>
           <a
-            href="mailto:hello@moms-promise.com"
+            href="mailto:momspromiseclothing@gmail.com"
             className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors w-fit"
           >
             <Mail size={15} className="shrink-0" />
-            hello@moms-promise.com
+            momspromiseclothing@gmail.com
           </a>
           <a
-            href="tel:+911234567890"
+            href="tel:+916385085562 "
             className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors w-fit"
           >
             <Phone size={15} className="shrink-0" />
-            +91 12345 67890
+            +91 63850 85562
           </a>
           <p className="flex items-start gap-2 text-sm text-foreground/70 w-fit">
             <MapPin size={15} className="shrink-0 mt-0.5" />
-            Tirupur, Tamil Nadu, India
+            Erode, Tamil Nadu, India
           </p>
         </div>
       </div>

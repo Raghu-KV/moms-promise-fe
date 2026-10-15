@@ -64,7 +64,7 @@ export function MobileSearchTrigger() {
     return (
       <div
         ref={panelRef}
-        className="absolute inset-x-0 top-0 z-50 bg-white border-b border-foreground/10 md:hidden max-h-[85vh] overflow-y-auto flex flex-col"
+        className="absolute inset-x-0 top-0 z-50 bg-white border-b border-foreground/10 xl:hidden max-h-[85vh] overflow-y-auto flex flex-col"
       >
         <form
           onSubmit={handleSubmit}
@@ -156,7 +156,7 @@ export function MobileSearchTrigger() {
     <button
       onClick={() => setIsOpen(true)}
       aria-label="Search"
-      className="p-2 text-foreground md:hidden"
+      className="p-2 text-foreground xl:hidden"
     >
       <Search size={22} />
     </button>

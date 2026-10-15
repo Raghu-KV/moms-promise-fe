@@ -33,7 +33,7 @@ function PaymentLinkResult() {
               : "We haven't received a payment yet. If you've already paid, please wait a moment, or use the payment link again."}
           </p>
         </div>
-        <Image src="/girl.svg" alt="Happy kid" width={130} height={178} />
+        <Image src="/girl.png" alt="Happy kid" width={130} height={156} />
         <Link href="/products">
           <Button variant="outline">Continue Shopping</Button>
         </Link>

@@ -134,7 +134,7 @@ export function CategoryDropdown({
         type="button"
         onClick={toggle}
         style={{ transform: isOpen ? "none" : `rotate(${rotate}deg)` }}
-        className="relative flex items-center gap-1 text-sm font-medium text-foreground py-2 transition-all duration-200 hover:rotate-0 hover:text-primary"
+        className="relative flex items-center gap-1 whitespace-nowrap text-sm font-medium text-foreground py-2 transition-all duration-200 hover:rotate-0 hover:text-primary"
       >
         {category.name}
         <ChevronDown ref={chevronRef} size={14} />
@@ -156,7 +156,7 @@ export function CategoryDropdown({
             <div className="flex">
               <div
                 data-pop-item
-                className="relative h-64 w-55 shrink-0 bg-foreground/5"
+                className="relative min-h-64 w-55 shrink-0 bg-foreground/5"
               >
                 {category.imageUrl ? (
                   <Image
@@ -190,7 +190,7 @@ export function CategoryDropdown({
                     data-pop-item
                     href={`/products?categoryId=${category._id}&category=${encodeURIComponent(category.name)}`}
                     onClick={closeNow}
-                    className="block mb-3 text-sm font-semibold text-primary hover:underline hover:translate-x-1 transition-transform"
+                    className="block mb-5 text-sm font-semibold text-primary hover:underline hover:translate-x-1 transition-transform"
                   >
                     Shop all {category.name}
                   </Link>
@@ -200,7 +200,7 @@ export function CategoryDropdown({
                       No subcategories yet
                     </p>
                   ) : (
-                    <div className="grid grid-flow-col grid-rows-4 gap-x-6 gap-y-3">
+                    <div className="grid grid-flow-col grid-rows-4 gap-x-8 gap-y-5">
                       {subCategories.map((sub) => (
                         <Link
                           key={sub._id}

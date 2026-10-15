@@ -94,14 +94,14 @@ export function CTABanner() {
         {/* eagle mascot — sibling of the card, so it can overflow past its edge; now on the left */}
         <div
           ref={eagleRef}
-          className="hidden md:block absolute z-20 bottom-0 left-6 lg:left-48 w-48 lg:w-64 pointer-events-none"
+          className="hidden md:block absolute z-20 bottom-0 left-6 lg:left-48 w-48 lg:w-74 pointer-events-none"
         >
           <Image
-            src="/boy.svg"
+            src="/girl2.png"
             alt="moms-promise eagle mascot"
-            width={1000}
-            height={1000}
-            className="w-180 h-full -translate-y-6 lg:-translate-y-28"
+            width={1024}
+            height={1536}
+            className="w-280 h-full object-contain-translate-y-6 lg:-translate-y-12"
           />
         </div>
       </div>

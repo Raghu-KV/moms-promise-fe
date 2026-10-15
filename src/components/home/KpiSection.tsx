@@ -77,7 +77,7 @@ export function KpiSection() {
   return (
     <section className="py-14">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="text-2xl md:text-4xl text-foreground text-center mb-10">
+        <h2 className="text-3xl md:text-5xl font-bold text-logo-pink text-center mb-10">
           Our Impact
         </h2>
 

@@ -28,7 +28,7 @@ export default function HomePage() {
       <ComboOffersSection />
       <NewArrivals />
       {/* <CategoryStrip /> */}
-      <QualitySection />
+      {/* <QualitySection /> */}
       <KpiSection />
       <ReviewsSection />
       <ShopVideosSection />

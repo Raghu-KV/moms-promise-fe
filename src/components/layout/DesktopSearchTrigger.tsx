@@ -61,7 +61,7 @@ export function DesktopSearchTrigger() {
   const products = data?.products ?? [];
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden xl:block">
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Search"

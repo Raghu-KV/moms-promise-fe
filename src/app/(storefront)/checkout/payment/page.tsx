@@ -143,7 +143,7 @@ function PaymentContent() {
 
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-6 text-center">
-      <Image src="/girl.svg" alt="Happy kid" width={130} height={178} />
+      <Image src="/girl.png" alt="Happy kid" width={130} height={156} />
       <div>
         <h1 className="text-2xl text-primary mb-2">Complete your payment</h1>
         {razorpayData && (

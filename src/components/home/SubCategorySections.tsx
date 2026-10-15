@@ -14,7 +14,7 @@ export async function SubCategorySections() {
       {sections.map((section) => (
         <section key={section._id} className="py-10">
           <div className="mx-auto max-w-7xl px-4">
-            <h2 className="text-2xl md:text-4xl text-foreground text-center mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold text-logo-pink text-center mb-8">
               {section.title}
             </h2>
 

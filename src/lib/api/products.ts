@@ -102,6 +102,7 @@ interface ListProductsResponse {
 export interface ListProductsParams {
   categoryId?: string;
   subCategoryId?: string;
+  childCategoryId?: string;
   age?: string;
   color?: string;
   minPrice?: string;

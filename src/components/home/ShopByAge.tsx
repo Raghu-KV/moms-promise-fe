@@ -34,13 +34,16 @@ export function ShopByAge() {
   return (
     <section className="py-6">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-script text-2xl md:text-4xl text-foreground text-center mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold text-logo-pink text-center mb-6">
           Shop by Age
         </h2>
 
         <Swiper
           modules={[Autoplay, FreeMode]}
           freeMode
+          // when there are fewer age groups than fit on screen, centre them
+          // instead of leaving them bunched on the left
+          centerInsufficientSlides
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,

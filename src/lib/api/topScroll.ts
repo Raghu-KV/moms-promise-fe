@@ -2,7 +2,7 @@ import { api } from "./client";
 
 export interface TopScrollMessage {
   _id: string;
-  text: string;
+  messages: string[];
   status: "active" | "inactive";
 }
 

@@ -399,7 +399,7 @@ export function QualitySection() {
       <DoodleCloud className="hidden lg:block absolute bottom-10 left-1/4 w-12 h-8 opacity-25" />
 
       <div className="relative mx-auto max-w-7xl px-4">
-        <h2 className="text-2xl md:text-4xl text-foreground text-center mb-10">
+        <h2 className="text-3xl md:text-5xl font-bold text-logo-pink text-center mb-10">
           About Us
         </h2>
 
@@ -434,7 +434,7 @@ export function QualitySection() {
           >
             <div
               ref={hoverRef}
-              className="relative w-40 md:w-56 drop-shadow-lg cursor-pointer select-none"
+              className="relative w-40 md:w-64 drop-shadow-lg cursor-pointer select-none"
               onClick={handleEagleClick}
               onMouseEnter={handleEagleEnter}
               onMouseLeave={handleEagleLeave}
@@ -444,7 +444,7 @@ export function QualitySection() {
                 className="absolute inset-0 z-0 pointer-events-none overflow-visible"
               />
               <Image
-                src="/girl.svg"
+                src="/girl.png"
                 alt="moms-promise eagle mascot"
                 width={324}
                 height={540}

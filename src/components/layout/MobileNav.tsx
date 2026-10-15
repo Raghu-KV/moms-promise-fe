@@ -113,13 +113,13 @@ export function MobileNav({ categories }: { categories: Category[] }) {
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open menu"
-        className="md:hidden p-2 text-foreground"
+        className="xl:hidden p-2 text-foreground"
       >
         <Menu size={24} />
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-50 xl:hidden">
           <div
             ref={overlayRef}
             className="absolute inset-0 bg-charcoal/50"
