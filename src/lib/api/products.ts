@@ -45,6 +45,7 @@ export interface ProductVariantFull {
   size: string;
   images: string[];
   stockQuantity: number;
+  lowStockThreshold?: number;
   effectiveMrp: number;
   effectiveSellingPrice: number;
   pricing: VariantPricing;

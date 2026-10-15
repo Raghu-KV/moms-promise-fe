@@ -5,7 +5,14 @@ import { formatPrice } from "@/lib/utils/currency";
 import { isNewProduct } from "@/lib/utils/discount";
 import type { ProductSummary } from "@/lib/api/products";
 
+// Matches the backend's default low-stock alert level for a variant.
+const LOW_STOCK_THRESHOLD = 5;
+
 export function ProductCard({ product }: { product: ProductSummary }) {
+  const totalStock = product.variants.reduce(
+    (sum, v) => sum + (v.stockQuantity ?? 0),
+    0,
+  );
   const isNew = isNewProduct(product.createdAt);
   const hasDiscount = product.discountPercent > 0;
 
@@ -40,6 +47,12 @@ export function ProductCard({ product }: { product: ProductSummary }) {
           <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
             <Badge variant="neutral">Out of stock</Badge>
           </div>
+        )}
+
+        {product.inStock && totalStock <= LOW_STOCK_THRESHOLD && (
+          <span className="absolute bottom-2 left-2 rounded-chip bg-orange-500 px-2.5 py-1 text-xs font-semibold text-white">
+            Only {totalStock} left
+          </span>
         )}
       </div>
 

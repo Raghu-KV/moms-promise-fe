@@ -108,7 +108,12 @@ export function PDPClient({ product, variants }: Props) {
     discountPercent: product.discountPercent,
   };
 
-  const inStock = (activeVariant?.stockQuantity ?? 0) > 0;
+  const stockQuantity = activeVariant?.stockQuantity ?? 0;
+  const inStock = stockQuantity > 0;
+  // "Only N left" kicks in at the variant's own low-stock alert level (set in
+  // the admin), falling back to 5 like the backend default.
+  const isLowStock =
+    inStock && stockQuantity <= (activeVariant?.lowStockThreshold ?? 5);
   const isNew = isNewProduct(product.createdAt);
 
   useEffect(() => {
@@ -402,6 +407,20 @@ export function PDPClient({ product, variants }: Props) {
               </span>
             )}
           </div>
+
+          {/* Stock for the selected option */}
+          {activeVariant && isLowStock && (
+            <p className="text-sm text-foreground">
+              Hurry up! Only{" "}
+              <span className="font-semibold text-red-600">
+                {stockQuantity}
+              </span>{" "}
+              {stockQuantity === 1 ? "item" : "items"} left in stock
+            </p>
+          )}
+          {activeVariant && !inStock && (
+            <p className="text-sm font-semibold text-red-600">Out of stock</p>
+          )}
 
           {/* Short description */}
           {product.shortDescription && (
