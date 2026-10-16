@@ -17,7 +17,7 @@ export interface ComboOfferSummary {
 export interface ComboOfferProductVariant {
   _id: string;
   sku: string;
-  age: string;
+  age?: string;
   color?: string;
   size?: string;
   stockQuantity: number;

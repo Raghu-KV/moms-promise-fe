@@ -144,7 +144,7 @@ function ComboProductRow({
 }) {
   const variants = product.variants;
   const allAges = useMemo(
-    () => [...new Set(variants.map((v) => v.age).filter(Boolean))],
+    () => [...new Set(variants.map((v) => v.age).filter((a): a is string => !!a))],
     [variants],
   );
   const allColors = useMemo(

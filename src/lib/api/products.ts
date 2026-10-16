@@ -2,7 +2,7 @@ import { api } from "./client";
 
 export interface ProductVariantSummary {
   _id: string;
-  age: string;
+  age?: string;
   color: string;
   size: string;
   images: string[];
@@ -40,7 +40,7 @@ export interface VariantPricing {
 
 export interface ProductVariantFull {
   _id: string;
-  age: string;
+  age?: string;
   color: string;
   size: string;
   images: string[];

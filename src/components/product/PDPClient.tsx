@@ -28,7 +28,7 @@ interface Props {
 }
 
 export function PDPClient({ product, variants }: Props) {
-  const allAges = [...new Set(variants.map((v) => v.age).filter(Boolean))];
+  const allAges = [...new Set(variants.map((v) => v.age).filter((a): a is string => !!a))];
   const allColors = [...new Set(variants.map((v) => v.color).filter(Boolean))];
   const allSizes = [...new Set(variants.map((v) => v.size).filter(Boolean))];
 
