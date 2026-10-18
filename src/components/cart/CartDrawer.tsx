@@ -233,7 +233,7 @@ function CartLineItem({
         </Link>
         <div className="flex gap-2 mt-0.5">
           {item.age && (
-            <span className="text-xs text-foreground/50">{item.age} yrs</span>
+            <span className="text-xs text-foreground/50">{item.age}</span>
           )}
           {item.color && (
             <span className="text-xs text-foreground/50">{item.color}</span>
@@ -365,7 +365,7 @@ function ComboCartRow({
               <div className="flex gap-2">
                 {item.age && (
                   <span className="text-[11px] text-foreground/50">
-                    {item.age} yrs
+                    {item.age}
                   </span>
                 )}
                 {item.color && (

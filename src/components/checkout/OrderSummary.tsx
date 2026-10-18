@@ -98,7 +98,7 @@ export function OrderSummary({ addressId }: OrderSummaryProps) {
                       {item.name}
                     </p>
                     <div className="flex gap-2 text-xs text-foreground/50 mt-0.5">
-                      {item.age && <span>{item.age} yrs</span>}
+                      {item.age && <span>{item.age}</span>}
                       {item.color && <span>{item.color}</span>}
                       <span>× {item.quantity}</span>
                     </div>
@@ -127,7 +127,7 @@ export function OrderSummary({ addressId }: OrderSummaryProps) {
                   {row.item.name}
                 </p>
                 <div className="flex gap-2 text-xs text-foreground/50 mt-0.5">
-                  {row.item.age && <span>{row.item.age} yrs</span>}
+                  {row.item.age && <span>{row.item.age}</span>}
                   {row.item.color && <span>{row.item.color}</span>}
                   <span>× {row.item.quantity}</span>
                 </div>

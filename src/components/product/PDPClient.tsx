@@ -461,7 +461,7 @@ export function PDPClient({ product, variants }: Props) {
                           : undefined
                       }
                     >
-                      {age} yrs
+                      {age}
                     </Button>
                   );
                 })}

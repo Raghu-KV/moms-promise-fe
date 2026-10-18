@@ -270,7 +270,7 @@ function ComboProductRow({
                       outOfStock && "opacity-50",
                     )}
                   >
-                    {age} yrs
+                    {age}
                   </button>
                 );
               })}
