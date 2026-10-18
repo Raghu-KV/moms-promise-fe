@@ -3,6 +3,7 @@ import { Logo } from "./Logo";
 import Image from "next/image";
 import logo from "../../../assets/logo.png";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { CONTACT } from "@/lib/contactInfo";
 
 const footerLinks = [
   { label: "About Us", href: "/about" },
@@ -43,22 +44,22 @@ export function Footer() {
             Get in Touch
           </p>
           <a
-            href="mailto:momspromiseclothing@gmail.com"
+            href={`mailto:${CONTACT.email}`}
             className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors w-fit"
           >
             <Mail size={15} className="shrink-0" />
-            momspromiseclothing@gmail.com
+            {CONTACT.email}
           </a>
           <a
-            href="tel:+916385085562 "
+            href={CONTACT.phoneHref}
             className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors w-fit"
           >
             <Phone size={15} className="shrink-0" />
-            +91 63850 85562
+            {CONTACT.phoneDisplay}
           </a>
           <p className="flex items-start gap-2 text-sm text-foreground/70 w-fit">
             <MapPin size={15} className="shrink-0 mt-0.5" />
-            Erode, Tamil Nadu, India
+            {CONTACT.location}
           </p>
         </div>
       </div>

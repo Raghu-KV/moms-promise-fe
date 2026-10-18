@@ -1,5 +1,6 @@
 // app/contact/page.tsx
 import { Mail, MapPin, Phone } from "lucide-react";
+import { CONTACT } from "@/lib/contactInfo";
 
 export default function ContactPage() {
     return (
@@ -14,7 +15,7 @@ export default function ContactPage() {
             <div className="bg-cream border border-foreground/10 rounded-card p-8 flex flex-col gap-6">
                 <div className="flex flex-col gap-5">
                     <a
-                        href="mailto:thangammboutique@gmail.com"
+                        href={`mailto:${CONTACT.email}`}
                         className="flex items-center gap-4 group"
                     >
                         <span className="p-2.5 rounded-md bg-primary/10 text-primary shrink-0">
@@ -23,13 +24,13 @@ export default function ContactPage() {
                         <div>
                             <p className="text-xs text-foreground/40 mb-0.5">Email</p>
                             <p className="text-sm text-foreground group-hover:text-primary transition-colors">
-                                hello@moms-promise.com
+                                {CONTACT.email}
                             </p>
                         </div>
                     </a>
 
                     <a
-                        href="tel:+911234567890"
+                        href={CONTACT.phoneHref}
                         className="flex items-center gap-4 group"
                     >
                         <span className="p-2.5 rounded-md bg-primary/10 text-primary shrink-0">
@@ -38,7 +39,7 @@ export default function ContactPage() {
                         <div>
                             <p className="text-xs text-foreground/40 mb-0.5">Phone</p>
                             <p className="text-sm text-foreground group-hover:text-primary transition-colors">
-                                +91 12345 67890
+                                {CONTACT.phoneDisplay}
                             </p>
                         </div>
                     </a>
@@ -49,7 +50,7 @@ export default function ContactPage() {
                         </span>
                         <div>
                             <p className="text-xs text-foreground/40 mb-0.5">Location</p>
-                            <p className="text-sm text-foreground">Tirupur, Tamil Nadu, India</p>
+                            <p className="text-sm text-foreground">{CONTACT.location}</p>
                         </div>
                     </div>
                 </div>
