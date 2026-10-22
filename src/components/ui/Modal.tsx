@@ -18,10 +18,20 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
   const panelRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  // Callers usually pass an inline `() => setOpen(false)`, a new function on
+  // every render. Reading it through a ref keeps the open animation below from
+  // replaying each time the parent re-renders (e.g. on every keystroke in a
+  // textarea inside the modal).
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const handleKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && onCloseRef.current();
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
 
@@ -36,7 +46,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

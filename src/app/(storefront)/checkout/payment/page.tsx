@@ -47,7 +47,7 @@ function PaymentContent() {
       key: rzpData.keyId,
       amount: rzpData.amount,
       currency: rzpData.currency,
-      name: "moms-promise Pop",
+      name: "moms-promise",
       description: `Order #${rzpData.orderNumber}`,
       order_id: rzpData.razorpayOrderId,
       handler: async (response: {

@@ -95,7 +95,9 @@ export const ordersApi = {
     orderNumber: string,
     reason: string,
   ): Promise<{ message: string; order: Order }> => {
-    const res = await api.post(`/orders/my/${orderNumber}/return`, { reason });
+    const res = await api.post(`/orders/my/${orderNumber}/return-request`, {
+      reason,
+    });
     return res.data;
   },
 };

@@ -79,13 +79,16 @@ export default function OrderDetailPage({
   if (!data) return null;
   const { order, payment } = data;
 
-  const canCancel = ["pending", "placed", "confirmed"].includes(
-    order.orderStatus,
-  );
+  // Only an unpaid order can be cancelled — a paid one can only be returned later
+  const canCancel =
+    order.paymentStatus !== "paid" &&
+    ["pending", "placed", "confirmed"].includes(order.orderStatus);
   // An unpaid order can be paid later — same payment page the checkout uses
   const canPay =
     order.orderStatus === "pending" && order.paymentStatus !== "paid";
-  const canReturn = order.orderStatus === "delivered";
+  const canReturn = ["out_for_delivery", "delivered"].includes(
+    order.orderStatus,
+  );
 
   const handleCancel = async () => {
     setActionError("");
