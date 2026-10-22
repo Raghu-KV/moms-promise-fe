@@ -44,13 +44,6 @@ export interface PlaceOrderResponse {
   requiresPayment: boolean;
 }
 
-export interface ServiceabilityResponse {
-  isServiceable: boolean;
-  isCodAvailable: boolean;
-  transitDays: number;
-  message: string;
-}
-
 export const checkoutApi = {
   getSummary: async (addressId?: string): Promise<CheckoutSummary> => {
     const res = await api.get<CheckoutSummary>("/checkout/summary", {
@@ -65,18 +58,6 @@ export const checkoutApi = {
     const res = await api.post<PlaceOrderResponse>(
       "/checkout/place-order",
       data,
-    );
-    return res.data;
-  },
-
-  checkServiceability: async (
-    pincode: string,
-  ): Promise<ServiceabilityResponse> => {
-    const res = await api.get<ServiceabilityResponse>(
-      "/shipping/serviceability",
-      {
-        params: { pincode },
-      },
     );
     return res.data;
   },

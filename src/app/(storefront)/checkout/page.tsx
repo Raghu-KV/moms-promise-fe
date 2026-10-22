@@ -17,7 +17,7 @@ import { OrderSummary } from "@/components/checkout/OrderSummary";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { AuthGuard } from "@/components/auth/AuthGuard";
-import { usePlaceOrder, useServiceability } from "@/lib/hooks/useCheckout";
+import { usePlaceOrder } from "@/lib/hooks/useCheckout";
 import type { Address } from "@/lib/api/address";
 
 // Online payment is the only supported method (no cash on delivery).
@@ -37,24 +37,6 @@ function CheckoutContent() {
   const [error, setError] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  // derived serviceability data
-  const selectedAddress = addresses?.find((a) => a._id === selectedAddressId);
-  const selectedPincode = selectedAddress?.pincode ?? "";
-
-  const {
-    data: serviceability,
-    isLoading: serviceabilityLoading,
-    isFetching: serviceabilityFetching,
-  } = useServiceability(selectedPincode);
-
-  const isServiceable =
-    !selectedPincode ||
-    serviceabilityLoading ||
-    serviceability?.isServiceable !== false;
-
-  const checkingServiceability =
-    serviceabilityLoading || serviceabilityFetching;
 
   // auto-select default address
   useEffect(() => {
@@ -88,10 +70,6 @@ function CheckoutContent() {
     setError("");
     if (!selectedAddressId) {
       setError("Please select a delivery address.");
-      return;
-    }
-    if (!isServiceable) {
-      setError(`We don't deliver to pincode ${selectedPincode} yet.`);
       return;
     }
     try {
@@ -203,14 +181,6 @@ function CheckoutContent() {
             )}
           </section>
 
-          {/* Only surface a problem — a deliverable pincode needs no banner */}
-          {selectedPincode && !checkingServiceability && !isServiceable && (
-            <div className="flex items-center gap-2 rounded-card bg-red-50 px-4 py-3 text-sm text-red-600">
-              <XCircle size={14} className="shrink-0" />
-              Sorry, we don&apos;t deliver to {selectedPincode} yet.
-            </div>
-          )}
-
           {/* Payment mode */}
           <section>
             <h2 className="text-base sm:text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -245,12 +215,7 @@ function CheckoutContent() {
             className="w-full"
             isLoading={placeOrder.isPending}
             onClick={handlePlaceOrder}
-            disabled={
-              !selectedAddressId ||
-              showForm ||
-              !isServiceable ||
-              checkingServiceability
-            }
+            disabled={!selectedAddressId || showForm}
           >
             Continue to Payment
           </Button>

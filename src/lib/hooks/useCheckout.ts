@@ -12,16 +12,6 @@ export function useCheckoutSummary(addressId?: string) {
   });
 }
 
-export function useServiceability(pincode: string) {
-  return useQuery({
-    queryKey: ["serviceability", pincode],
-    queryFn: () => checkoutApi.checkServiceability(pincode),
-    enabled: /^\d{6}$/.test(pincode), // only fire when exactly 6 digits
-    staleTime: 10 * 60 * 1000, // 10 min — matches backend PincodeCache TTL
-    retry: false,
-  });
-}
-
 export function usePlaceOrder() {
   const qc = useQueryClient();
   return useMutation({

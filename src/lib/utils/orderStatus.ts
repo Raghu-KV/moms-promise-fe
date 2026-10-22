@@ -1,4 +1,5 @@
 export const ORDER_STATUS_LABELS: Record<string, string> = {
+  pending: "Awaiting Payment",
   placed: "Order Placed",
   confirmed: "Confirmed",
   processing: "Processing",
@@ -11,6 +12,7 @@ export const ORDER_STATUS_LABELS: Record<string, string> = {
 };
 
 export const ORDER_STATUS_COLORS: Record<string, string> = {
+  pending: "bg-amber-100 text-amber-700",
   placed: "bg-highlight/20 text-charcoal",
   confirmed: "bg-primary/10 text-primary",
   processing: "bg-primary/10 text-primary",

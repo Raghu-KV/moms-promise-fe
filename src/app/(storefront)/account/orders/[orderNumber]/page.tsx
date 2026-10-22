@@ -79,7 +79,12 @@ export default function OrderDetailPage({
   if (!data) return null;
   const { order, payment } = data;
 
-  const canCancel = ["placed", "confirmed"].includes(order.orderStatus);
+  const canCancel = ["pending", "placed", "confirmed"].includes(
+    order.orderStatus,
+  );
+  // An unpaid order can be paid later — same payment page the checkout uses
+  const canPay =
+    order.orderStatus === "pending" && order.paymentStatus !== "paid";
   const canReturn = order.orderStatus === "delivered";
 
   const handleCancel = async () => {
@@ -310,8 +315,13 @@ export default function OrderDetailPage({
         )}
 
         {/* Actions */}
-        {(canCancel || canReturn) && (
+        {(canPay || canCancel || canReturn) && (
           <div className="flex gap-3">
+            {canPay && (
+              <Link href={`/checkout/payment?orderId=${order._id}`}>
+                <Button>Pay now</Button>
+              </Link>
+            )}
             {canCancel && (
               <Button
                 variant="outline"
